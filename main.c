@@ -31,33 +31,9 @@ void	ft_printlst(t_list *alst)
 	}
 }
 
-int		checkfile(char *av)
+int		checkfile(t_list **beginlst)
 {
-	char buff;
-	int	fd;
-	// unsigned	hashcount;
-	unsigned	row;
-	unsigned	col;
-
-	fd = open(av, O_RDONLY);
-	row = 0;
-	col = 0;
-	if (fd == -1)
-		return ((int)error("error: failed to open file"));
-	while (read(fd, &buff, 1))
-	{
-		if (buff == '\n' && row < 5)
-			row++;
-		else if (row == 0)
-			col++;
-		// cant be more than 4 wide
-		// 4 tall
-		// can only have 4 hashes
-		// dots should fill the remainder of the space
-	}
-	if (row != 5 || col != 4)
-		return ((int)error("error: file not formated correctly"));
-	return (1);
+	
 }
 
 t_list	*storepieces(char *av)
@@ -83,9 +59,9 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
-	if (!checkfile(argv[1]))
-		return (0);
 	new = storepieces(argv[1]);
+	if (!checkfile(&new))
+		return (0);
 	ft_printlst(new);
 	return (1);
 }
