@@ -16,9 +16,10 @@ FLAG =	-Wall -Wextra -Werror -o
 
 NAME =	fillit
 
-SRCS =	main.c \
+SRCS =	libft.a \
+		main.c \
 
-OBJS =	$(SRCS:.c=.o)
+OBJS =	$(NAME)
 
 all: 	$(NAME)
 
@@ -26,7 +27,7 @@ $(NAME):
 		@$(CC) $(FLAG) $(NAME) $(SRCS)
 
 clean:
-		@/bin/rm -f $(OBJS)
+		/bin/rm -f $(OBJS)
 
 fclean:	clean
 		@/bin/rm -f $(NAME)
