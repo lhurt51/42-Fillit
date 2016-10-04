@@ -31,9 +31,22 @@ void	ft_printlst(t_list *alst)
 	}
 }
 
-int		checkfile(t_list **beginlst)
+int		tetriminocheck(t_list *lst)
 {
-	
+
+}
+
+int		lstcheck(t_list *lst, int (*f)(t_list *elem))
+{
+	if (!lst)
+		return ;
+	while (lst)
+	{
+		if (!f(lst))
+			return ((int)error("error: file formated wrong"));
+		lst = lst->next;
+	}
+	return (1);
 }
 
 t_list	*storepieces(char *av)
@@ -60,7 +73,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	new = storepieces(argv[1]);
-	if (!checkfile(&new))
+	if (!checkfile(&new, &tetriminocheck))
 		return (0);
 	ft_printlst(new);
 	return (1);
