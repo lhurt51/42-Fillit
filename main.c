@@ -26,20 +26,26 @@ void	ft_printlst(t_list *alst)
 	list = alst;
 	while (list)
 	{
-		ft_putendl(list->content);
+		if (list->content)
+			ft_putendl(list->content);
 		list = list->next;
 	}
 }
 
 int		tetriminocheck(t_list *lst)
 {
-
+	if (lst)
+		return(1);
+	return (0);
 }
 
-int		lstcheck(t_list *lst, int (*f)(t_list *elem))
+int		lstcheck(t_list **begin, int (*f)(t_list *elem))
 {
+	t_list *lst;
+
+	lst = *begin;
 	if (!lst)
-		return ;
+		return (0);
 	while (lst)
 	{
 		if (!f(lst))
@@ -52,17 +58,25 @@ int		lstcheck(t_list *lst, int (*f)(t_list *elem))
 t_list	*storepieces(char *av)
 {
 	t_list	*pieces;
-	char	*str;
+	char	str[SIZE + 1];
 	int		fd;
+	int		count;
 
+	count = 0;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (error("error: failed to open file"));
-	str = ft_strnew(SIZE + 1);
-	if (!str)
-		return (error("error: failed to malloc"));
 	while (read(fd, str, SIZE + 1))
-		ft_lstadd(&pieces, ft_lstnew(str, SIZE + 1));
+	{
+		if (count == 0)
+		{
+			pieces = ft_lstnew(str, SIZE + 1);
+			count++;
+		}
+		else
+			ft_lstadd(&pieces, ft_lstnew(str, SIZE + 1));
+	}
+	close(fd);
 	return (pieces);
 }
 
@@ -73,7 +87,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	new = storepieces(argv[1]);
-	if (!checkfile(&new, &tetriminocheck))
+	if (!lstcheck(&new, &tetriminocheck))
 		return (0);
 	ft_printlst(new);
 	return (1);
