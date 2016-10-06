@@ -28,7 +28,7 @@ $(NAME):
 		@$(CC) $(FLAG) $(NAME) $(SRCS)
 
 clean:
-		/bin/rm -f $(OBJS)
+		@/bin/rm -f $(OBJS)
 
 fclean:	clean
 		@/bin/rm -f $(NAME)
