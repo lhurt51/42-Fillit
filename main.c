@@ -32,12 +32,6 @@ void	ft_printlst(t_list *alst)
 	}
 }
 
-int		tetriminocheck(t_list *lst)
-{
-	if (lst)
-		return(1);
-	return (0);
-}
 
 int		lstcheck(t_list **begin, int (*f)(t_list *elem))
 {
