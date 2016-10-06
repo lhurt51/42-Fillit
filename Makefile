@@ -17,6 +17,7 @@ FLAG =	-Wall -Wextra -Werror -o
 NAME =	fillit
 
 SRCS =	libft.a \
+		check.c \
 		main.c \
 
 OBJS =	$(NAME)
