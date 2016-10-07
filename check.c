@@ -1,4 +1,6 @@
 #include "fillit.h"
+#include <stdio.h>
+ 
 
 int		findspace(char *s)
 {
@@ -21,7 +23,7 @@ char	*ft_tertrim(char const *s)
 	start = i;
 	while (s[i])
 		i++;
-	while (i > start && (s[i] == '.' || s[i] == '\n' || s[i] == '\0'))
+	while ((s[i] == '.' || s[i] == '\n' || s[i] == '\0') && i > start)
 		i--;
 	end = i;
 	new = ft_strnew(end - start + 1);
@@ -36,9 +38,8 @@ char	*ft_tertrim(char const *s)
 		{
 			new[i] = s[start];
 			start++;
-			i++;	
+			i++;
 		}
-
 	}
 	new[i] = '\0';
 	return (new);
@@ -49,9 +50,15 @@ int		tetriminocheck(t_list *lst)
 	char *str;
 	int i;
 
-	i = 0;
 	str = lst->content;
 	str = (ft_tertrim(str));
-	lst->content = str;
-	return 1;
+	i = 0;
+	while(TESTER[i])
+	{
+		if(ft_strcmp(TESTER[i],str) == 0)
+			return (1);
+		else
+			i++;
+	}
+	return(0);
 }

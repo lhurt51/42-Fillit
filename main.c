@@ -27,7 +27,9 @@ void	ft_printlst(t_list *alst)
 	while (list)
 	{
 		if (list->content)
+		{
 			ft_putendl(list->content);
+		}
 		list = list->next;
 	}
 }
