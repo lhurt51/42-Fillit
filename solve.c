@@ -12,11 +12,32 @@
 
 #include "fillit.h"
 
-int		fill_it_solve(int n, int row, char **square, t_list **bgnlst, t_list *start)
+int		fill_it_solve(int n, int *row, int *col, char **board, t_list *start)
 {
 	t_list	*lst;
+	int		piece;
+	int		found;
 
-	lst = *bgnlst;
-	if (!start)
+	lst = start;
+	if (n == row)
 		return (1);
+	while (row < n)
+	{
+		while (col < n)
+		{
+			found = 1;
+			piece = 0;
+			while (lst)
+			{
+				// needs to search throught the entire list of tetriminos for every position
+			}
+			if(found)
+			{
+				// when it has found a spot for a tetrimino it will 
+			}
+			(*col)++;
+		}
+		(*row)++;
+	}
+	return (0);
 }
