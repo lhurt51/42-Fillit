@@ -24,10 +24,16 @@ typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
-	int				*x;
-	int				*y;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_hash
+{
+	int				*x;
+	int				*y;
+	struct s_hash	*next;
+	struct s_hash	*prev;
+}					t_hash;
 
 void				ft_putendl(char const *s);
 void				ft_putnbr(int nb);

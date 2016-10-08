@@ -62,7 +62,8 @@ int		fill_it_solve(int n, int row, char **board, t_list **bgnlst)
 		}
 		if(found)
 		{
-			// when it has found a spot for a tetrimino it will store the tetrimino on the map 
+			// when it has found a spot for a tetrimino it will store the tetrimino on the map
+			// it has to relink the list and set the new lst equal to it
 		}
 		col++;
 	}
