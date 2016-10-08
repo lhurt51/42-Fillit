@@ -12,32 +12,62 @@
 
 #include "fillit.h"
 
-int		fill_it_solve(int n, int *row, int *col, char **board, t_list *start)
+int		is_valid_spot(int n, int row, int col, char **board, t_list *start)
+{
+	//checking the position of the tetrimino to see if it is valid
+	int		*x-axis;
+	int		*y-axis;
+	int		x;
+	int		y;
+	int		i;
+
+	i = 0;
+	x-axis = start->x;
+	y-axis = start->y;
+	while (i < 4)
+	{
+		x = x-axis[i];
+		y = y-axis[i];
+		if (board[row + y][col + x] == '#' || (row + y) >= n 
+					|| (col + x) >= n)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		fill_it_solve(int n, int row, char **board, t_list **bgnlst)
 {
 	t_list	*lst;
+	int		col;
 	int		piece;
 	int		found;
 
-	lst = start;
-	if (n == row)
+	col = 0;
+	lst = *bgnlst;
+	if (!lst)
 		return (1);
-	while (row < n)
+	while (col < n)
 	{
-		while (col < n)
+		found = 1;
+		piece = 1;
+		// take this out make a function equal to piece then if piece we store the piece and del from lst
+		while (lst)
 		{
-			found = 1;
-			piece = 0;
-			while (lst)
-			{
-				// needs to search throught the entire list of tetriminos for every position
-			}
-			if(found)
-			{
-				// when it has found a spot for a tetrimino it will 
-			}
-			(*col)++;
+			// needs to search throught the entire list of tetriminos for every position
+			if (!is_valid_spot(n, (int)row, (int)col, board, lst))
+				found = 0;
+			piece++;
+			lst = lst->next;
 		}
-		(*row)++;
+		if(found)
+		{
+			// when it has found a spot for a tetrimino it will store the tetrimino on the map
+			// it has to relink the list and set the new lst equal to it
+		}
+		col++;
 	}
+	if (row < n)
+		fill_it_solve(n, row + 1, board, bgnlst);
 	return (0);
 }
