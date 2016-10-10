@@ -22,8 +22,6 @@ void	my_lstdelone(t_list **alst, void (*del)(void**))
 	}
 }
 
-int		fill_it_solve(int n, int row, char **board, t_list **bgnlst);
-
 int		is_valid_spot(int n, int row, int col, char **board, t_list *start)
 {
 	int		i;
@@ -43,12 +41,8 @@ int		is_valid_spot(int n, int row, int col, char **board, t_list *start)
 	return (1);
 }
 
-int		store_hash(int row, int col, char **board, t_list **bgnlst, t_list *tmp)
+t_list	*modify_lst(t_list *lst, t_list *tmp)
 {
-	t_list	*lst;
-	int		x;
-	int		y;
-
 	lst = *bgnlst;
 	while (piece > 1)
 	{
@@ -58,19 +52,28 @@ int		store_hash(int row, int col, char **board, t_list **bgnlst, t_list *tmp)
 		piece--;
 	}
 	tmp->next = lst->next;
+	my_lstdelone(&lst, &ft_memdel);
 	while (tmp->prev)
 		tmp = tmp->prev;
-	*bgnlst = tmp;
-	my_lstdelone(&lst, &ft_memdel);
+	return (tmp);
+}
+
+int		store_hash(int row, int col, int piece,char **board, t_list **bgnlst)
+{
+	int		x;
+	int		y;
+	int		i;
+
 	i = 0;
+	*bgnlst = modify_lst(*bgnlst, *bgnlst, piece)
 	while (i > 4)
 	{
 		x = start->x[i];
 		y = start->y[i];
 		board[row + y][col + x] = (char)(piece + 64);
-		i--;
+		i++;
 	}
-	if (fill_it_solve(n, row, col, **board, bgnlst))
+	if (fill_it_solve(n, row, col, board, bgnlst))
 		return (1);
 	return (0);
 }
@@ -105,7 +108,7 @@ int		fill_it_solve(int n, int row, int col, char **board, t_list **bgnlst)
 		piece = 0;
 		found = check_entire_lst(n, (int)row, (int)col, &piece, board, bgnlst);
 		if(found)
-			store_hash(row, col, piece, board, bgnlst, *bgnlst);
+			store_hash(row, col, piece, board, bgnlst);
 		col++;
 	}
 	if (row < n)
