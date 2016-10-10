@@ -22,22 +22,19 @@ void	my_lstdelone(t_list **alst, void (*del)(void**))
 	}
 }
 
+int		fill_it_solve(int n, int row, char **board, t_list **bgnlst);
+
 int		is_valid_spot(int n, int row, int col, char **board, t_list *start)
 {
-	//checking the position of the tetrimino to see if it is valid
-	int		*x-axis;
-	int		*y-axis;
+	int		i;
 	int		x;
 	int		y;
-	int		i;
 
 	i = 0;
-	x-axis = start->x;
-	y-axis = start->y;
 	while (i < 4)
 	{
-		x = x-axis[i];
-		y = y-axis[i];
+		x = start->x[i];
+		y = start->y[i];
 		if (board[row + y][col + x] == '#' || (row + y) >= n 
 					|| (col + x) >= n)
 			return (0);
@@ -46,68 +43,72 @@ int		is_valid_spot(int n, int row, int col, char **board, t_list *start)
 	return (1);
 }
 
-int		fill_it_solve(int n, int row, char **board, t_list **bgnlst)
+int		store_hash(int row, int col, char **board, t_list **bgnlst, t_list *tmp)
 {
 	t_list	*lst;
-	int		col;
+	int		x;
+	int		y;
+
+	lst = *bgnlst;
+	while (piece > 1)
+	{
+		lst = lst->next;
+		if (piece > 2)
+			tmp = tmp->next;
+		piece--;
+	}
+	tmp->next = lst->next;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	*bgnlst = tmp;
+	my_lstdelone(&lst, &ft_memdel);
+	i = 0;
+	while (i > 4)
+	{
+		x = start->x[i];
+		y = start->y[i];
+		board[row + y][col + x] = (char)(piece + 64);
+		i--;
+	}
+	if (fill_it_solve(n, row, col, **board, bgnlst))
+		return (1);
+	return (0);
+}
+
+int		check_entire_lst(int row, int col, int *piece, char **board, 
+			t_list **bgnlst)
+{
+	t_list lst;
+
+	lst = *bgnlst;
+	while (lst)
+	{
+		if (is_valid_spot(n, (int)row, (int)col, board, lst))
+			return (1);
+		(*piece)++;
+		lst = lst->next;
+	}
+	return (0);
+}
+
+int		fill_it_solve(int n, int row, int col, char **board, t_list **bgnlst)
+{
+	t_list	*lst;
 	int		piece;
 	int		found;
 
-	col = 0;
 	lst = *bgnlst;
 	if (!lst)
 		return (1);
 	while (col < n)
 	{
-		found = 0;
-		piece = 1;
-		// take this out make a function equal to piece then if piece we store the piece and del from lst
-		while (lst)
-		{
-			// needs to search throught the entire list of tetriminos for every position
-			if (is_valid_spot(n, (int)row, (int)col, board, lst))
-			{
-				found = 1;
-				break ;
-			}
-			piece++;
-			lst = lst->next;
-		}
+		piece = 0;
+		found = check_entire_lst(n, (int)row, (int)col, &piece, board, bgnlst);
 		if(found)
-		{
-			// when it has found a spot for a tetrimino it will store the tetrimino on the map
-			// it has to relink the list and set the new lst equal to it
-			t_list	*tmp;
-			int		*x-axis;
-			int		*y-axis;
-			int		x;
-			int		y;
-
-			lst = *bgnlst;
-			while (piece > 1)
-			{
-				lst = lst->next;
-				if (piece > 2)
-				piece--;
-			}
-			i = 0;
-			x-axis = start->x;
-			y-axis = start->y;
-			while (i > 4)
-			{
-				x = x-axis[i];
-				y = y-axis[i];
-				board[row + y][col + x] = (char)(piece + 64);
-			}
-			tmp = lst->prev;
-			tmp->next = lst->next;
-			my_lstdelone(&lst, &ft_memdel);
-			if (n_queens(n, row, **board, bgnlst))
-				return (1);
-		}
+			store_hash(row, col, piece, board, bgnlst, *bgnlst);
 		col++;
 	}
 	if (row < n)
-		fill_it_solve(n, row + 1, board, bgnlst);
+		fill_it_solve(n, row + 1, 0, board, bgnlst);
 	return (0);
 }
