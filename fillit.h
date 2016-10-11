@@ -31,10 +31,13 @@ typedef struct		s_hash
 {
 	int				*x;
 	int				*y;
+	char			type;
+	int 			found;
 	struct s_hash	*next;
 	struct s_hash	*prev;
 }					t_hash;
 
+void				ft_putchar(char c);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int nb);
 void				*ft_memset(void *b, int c, size_t len);
@@ -70,8 +73,15 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_printlst(t_list *alst);
+int					ft_lstcheck(t_list **begin, int (*f)(t_list *elem));
 void				ft_lstadd(t_list **alst, t_list *new);
 int					tetriminocheck(t_list *lst);
-int					fill_it_solve(int n, int row, char **board, t_list **bgnlst);
+int					fill_it_solve(int n, int row, char **board, t_hash **bgnlst);
+void				del(void *str);
+void				my_lstdelone(t_hash **alst, void (*del)(void*));
+void				ft_addhash(t_hash **bgnlst, t_hash *lst);
+t_hash				*ft_newhash(unsigned int i, int	*x, int *y);
+
 
 #endif

@@ -15,38 +15,7 @@
 void	*error(char *msg)
 {
 	ft_putendl(msg);
-	// 0 is my NULL or Fail int
 	return (NULL);
-}
-
-void	ft_printlst(t_list *alst)
-{
-	t_list *list;
-
-	list = alst;
-	while (list)
-	{
-		if (list->content)
-			ft_putendl(list->content);
-		list = list->next;
-	}
-}
-
-
-int		lstcheck(t_list **begin, int (*f)(t_list *elem))
-{
-	t_list *lst;
-
-	lst = *begin;
-	if (!lst)
-		return (0);
-	while (lst)
-	{
-		if (!f(lst))
-			return ((int)error("error: file formated wrong"));
-		lst = lst->next;
-	}
-	return (1);
 }
 
 t_list	*storepieces(char *av)
@@ -81,7 +50,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	new = storepieces(argv[1]);
-	if (!lstcheck(&new, &tetriminocheck))
+	if (!ft_lstcheck(&new, &tetriminocheck))
 		return (0);
 	ft_printlst(new);
 	return (1);
