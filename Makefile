@@ -18,6 +18,7 @@ NAME =	fillit
 
 SRCS =	libft.a \
 		check.c \
+		solve.c \
 		main.c \
 
 OBJS =	$(NAME)
