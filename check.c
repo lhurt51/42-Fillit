@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassafa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/10/12 14:13:11 by rpassafa          #+#    #+#             */
+/*   Updated: 2016/10/12 14:13:12 by rpassafa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 int		findspace(char *s)
@@ -52,6 +64,13 @@ int		tetriminocheck(t_list *lst)
 	i = 0;
 	str = lst->content;
 	str = (ft_tertrim(str));
-	lst->content = str;
-	return 1;
+	while(TESTER[i])
+	{
+		if(ft_strcmp(str,TESTER[i]) == 0)
+		{
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
