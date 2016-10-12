@@ -28,12 +28,12 @@ t_hash	*ft_newhash(unsigned int i, int	*x, int *y)
 		else
 		{
 			new->type = (char)(i + 65);
-			if (!(new->x = ft_memalloc(4 * 4)) || !(new->y = ft_memalloc(4 * 4)))
+			if (!(new->x = ft_memalloc(4 * 4)) 
+				|| !(new->y = ft_memalloc(4 * 4)))
 				return (NULL);
 			new->x = (int*)ft_memcpy(new->x, x, 4 * 4);
 			new->y = (int*)ft_memcpy(new->y, y, 4 * 4);
 		}
-		new->prev = NULL;
 		new->next = NULL;
 	}
 	return (new);
@@ -44,10 +44,29 @@ void	ft_addhash(t_hash **bgnlst, t_hash *lst)
 	t_hash	*tmp;
 
 	tmp = *bgnlst;
+	if (!tmp)
+	{
+		*bgnlst = lst;
+		return ;
+	}
 	while (tmp->next)
 		tmp = tmp->next;
-	lst->prev = tmp;
 	tmp->next = lst;
+}
+
+int		ft_hashcount(t_hash **bgnlst)
+{
+	t_hash			*lst;
+	int	i;
+
+	i = 0;
+	lst = *bgnlst;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }
 
 void	my_lstdelone(t_hash **alst, void (*del)(void*))
