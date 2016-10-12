@@ -18,6 +18,7 @@ NAME =	fillit
 
 SRCS =	libft.a \
 		check.c \
+		store.c \
 		solve.c \
 		hashfunc.c \
 		main.c \

@@ -73,17 +73,17 @@ void	ft_hashdelone(t_hash **alst, void (*del)(void**))
 {
 	if (*alst != NULL)
 	{
-		del(&(*alst)->x);
-		del(&(*alst)->y);
+		del((void**)&(*alst)->x);
+		del((void**)&(*alst)->y);
 		free(*alst);
 		*alst = NULL;
 	}
 }
 
-void	ft_hashdel(t_list **alst, void (*del)(void**, void (*del)(void**)))
+void	ft_hashdel(t_hash **alst, void (*del)(t_hash**, void (*del)(void**)))
 {
-	t_list *tmp;
-	t_list *list;
+	t_hash *tmp;
+	t_hash *list;
 
 	list = *alst;
 	if (!list)
@@ -91,7 +91,7 @@ void	ft_hashdel(t_list **alst, void (*del)(void**, void (*del)(void**)))
 	while (list)
 	{
 		tmp = list->next;
-		del(&lst);
+		del(&list, &ft_memdel);
 		list = tmp;
 	}
 	*alst = NULL;
