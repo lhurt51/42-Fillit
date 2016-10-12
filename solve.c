@@ -44,7 +44,7 @@ t_hash	**store_hash(int row, int col, char **board, t_hash *lst)
 		board[row + y][col + x] = lst->type;
 		i++;
 	}
-	return(&lst->next);
+	return (&lst->next);
 }
 
 void	reset(int n, char **str, char c)
@@ -75,10 +75,10 @@ int		fill_it_solve(int n, int row, char **board, t_hash **bgnlst)
 	lst = *bgnlst;
 	if (!lst)
 		return (1);
-	while (row < n)
+	while (row < n) // - lst->height
 	{
 		col = 0;
-		while (col < n)
+		while (col < n) // - lst->len
 		{
 			found = is_valid_spot(row, col, board, lst);
 			if (found)
