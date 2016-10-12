@@ -56,8 +56,8 @@ void	ft_addhash(t_hash **bgnlst, t_hash *lst)
 
 int		ft_hashcount(t_hash **bgnlst)
 {
-	t_hash			*lst;
-	int	i;
+	t_hash	*lst;
+	int		i;
 
 	i = 0;
 	lst = *bgnlst;
@@ -69,18 +69,30 @@ int		ft_hashcount(t_hash **bgnlst)
 	return (i);
 }
 
-void	my_lstdelone(t_hash **alst, void (*del)(void*))
+void	ft_hashdelone(t_hash **alst, void (*del)(void**))
 {
 	if (*alst != NULL)
 	{
-		del((*alst)->x);
-		del((*alst)->y);
+		del((void**)&(*alst)->x);
+		del((void**)&(*alst)->y);
 		free(*alst);
 		*alst = NULL;
 	}
 }
 
-void	del(void *str)
+void	ft_hashdel(t_hash **alst, void (*del)(t_hash**, void (*del)(void**)))
 {
-	free(str);
+	t_hash *tmp;
+	t_hash *list;
+
+	list = *alst;
+	if (!list)
+		return ;
+	while (list)
+	{
+		tmp = list->next;
+		del(&list, &ft_memdel);
+		list = tmp;
+	}
+	*alst = NULL;
 }

@@ -46,6 +46,7 @@ t_list	*storepieces(char *av)
 int		main(int argc, char **argv)
 {
 	t_list	*new;
+	t_hash	*tmp;
 
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
@@ -53,5 +54,6 @@ int		main(int argc, char **argv)
 	if (!ft_lstcheck(&new, &tetriminocheck))
 		return (0);
 	ft_printlst(new);
+	tmp = storepoints(&new);
 	return (1);
 }
