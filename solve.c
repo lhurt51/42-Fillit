@@ -12,30 +12,7 @@
 
 #include "fillit.h"
 
-void	print(t_hash *lst)
-{
-	while (lst)
-	{
-		ft_putnbr(lst->x[0]);
-		ft_putnbr(lst->x[1]);
-		ft_putnbr(lst->x[2]);
-		ft_putnbr(lst->x[3]);
-		ft_putendl("");
-		ft_putendl("|-|-|-|-|");
-		ft_putnbr(lst->y[0]);
-		ft_putnbr(lst->y[1]);
-		ft_putnbr(lst->y[2]);
-		ft_putnbr(lst->y[3]);
-		ft_putendl("");
-		ft_putchar(lst->type);
-		ft_putnbr(lst->found);
-		ft_putendl("");
-		ft_putendl("");
-		lst = lst->next;
-	}
-}
-
-int		is_valid_spot(int n, int row, int col, char **board, t_hash *lst)
+int		is_valid_spot(int row, int col, char **board, t_hash *lst)
 {
 	int		i;
 	int		x;
@@ -46,81 +23,52 @@ int		is_valid_spot(int n, int row, int col, char **board, t_hash *lst)
 	{
 		x = lst->x[i];
 		y = lst->y[i];
-		if (board[row + y][col + x] != '.' || ((row + y) >= n) || ((col + x) >= n))
+		if (board[row + y][col + x] != '.')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-t_hash	*store_hash(int row, int col, char **board, t_hash **bgnlst)
+t_hash	**store_hash(int row, int col, char **board, t_hash *lst)
 {
-	t_hash *tmp;
+	int		i;
 	int		x;
 	int		y;
-	int		i;
 
 	i = 0;
-	tmp = *bgnlst;
-	while (tmp->found != 1)
-		tmp = tmp->next;
 	while (i < 4)
 	{
-		x = tmp->x[i];
-		y = tmp->y[i];
-		board[row + y][col + x] = tmp->type;
+		x = lst->x[i];
+		y = lst->y[i];
+		board[row + y][col + x] = lst->type;
 		i++;
 	}
-	tmp->found = 2;
-	return (tmp);
+	return(&lst->next);
 }
 
-int		check_entire_lst(int n, int row, int col, char **board, t_hash **bgnlst)
-{
-	t_hash	*lst;
-
-	lst = *bgnlst;
-	while (lst)
-	{
-		if (is_valid_spot(n, (int)row, (int)col, board, lst) && lst->found == 0)
-		{
-			lst->found = 1;
-			ft_putendl("it has been found");
-			return (1);
-		}
-		lst = lst->next;
-	}
-	return (0);
-}
-
-void	reset(int n, char **str, t_hash *tmp, t_hash **bgnlst)
+void	reset(int n, char **str, char c)
 {
 	int i;
 	int j;
 
 	i = 0;
-	ft_putendl("it has been reset");
 	while (i < n)
 	{
 		j = 0;
 		while (j < n)
 		{
-			if (str[i][j] == tmp->type)
+			if (str[i][j] == c)
 				str[i][j] = '.';
 			j++;
 		}
 		i++;
 	}
-	tmp->found = 0;
-	while (tmp->prev)
-		tmp = tmp->prev;
-	*bgnlst = tmp;
 }
 
 int		fill_it_solve(int n, int row, char **board, t_hash **bgnlst)
 {
 	t_hash	*lst;
-	t_hash	*tmp;
 	int		found;
 	int		col;
 
@@ -132,21 +80,12 @@ int		fill_it_solve(int n, int row, char **board, t_hash **bgnlst)
 		col = 0;
 		while (col < n)
 		{
-			found = check_entire_lst(n, row, col, board, &lst);
-			if(found)
+			found = is_valid_spot(row, col, board, lst);
+			if (found)
 			{
-				ft_putendl("fresh");
-				print(lst);
-				tmp = store_hash(row, col, board, &lst);
-				ft_putendl("modified");
-				print(lst);
-				if (fill_it_solve(n, row, board, &lst))
+				if (fill_it_solve(n, 0, board, store_hash(row, col, board, lst)))
 					return (1);
-				else
-				{
-					reset(n, board, tmp, &lst);
-					col--;
-				}
+				reset(n, board, lst->type);
 			}
 			col++;
 		}
