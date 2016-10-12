@@ -56,21 +56,20 @@ char	*ft_tertrim(char const *s)
 	return (new);
 }
 
-int		tetriminocheck(t_list *lst)
+int		tetriminocheck(char *str)
 {
-	char *str;
+	char *tmp;
 	int i;
 
 	i = 0;
-	str = lst->content;
-	str = (ft_tertrim(str));
+	tmp = (ft_tertrim(str));
 	while(TESTER[i])
 	{
-		if(ft_strcmp(str,TESTER[i]) == 0)
+		if(ft_strcmp(tmp, TESTER[i]) == 0)
 		{
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }

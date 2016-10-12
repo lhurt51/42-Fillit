@@ -58,7 +58,6 @@ void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_printlst(t_list *alst);
-int					ft_lstcheck(t_list **begin, int (*f)(t_list *elem));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
@@ -66,7 +65,7 @@ void				ft_addhash(t_hash **bgnlst, t_hash *lst);
 t_hash				*ft_newhash(unsigned int i, int	*x, int *y);
 void				ft_hashdelone(t_hash **alst, void (*del)(void**));
 void				ft_hashdel(t_hash **alst, void (*del)(t_hash**, void (*del)(void**)));
-int					tetriminocheck(t_list *lst);
+int					tetriminocheck(char *str);
 t_hash				*storepoints(t_list **heads);
 int					fill_it_solve(int n, int row, char **board, t_hash **bgnlst);
 

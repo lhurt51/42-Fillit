@@ -31,6 +31,9 @@ t_list	*storepieces(char *av)
 		return (error("error: failed to open file"));
 	while (read(fd, str, SIZE + 1))
 	{
+		str[SIZE] = '\0';
+		if (!tetriminocheck(str))
+			return (error("error: bad hash format"));
 		if (count == 0)
 		{
 			pieces = ft_lstnew(str, SIZE + 1);
@@ -51,8 +54,6 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	new = storepieces(argv[1]);
-	if (!ft_lstcheck(&new, &tetriminocheck))
-		return (0);
 	ft_printlst(new);
 	tmp = storepoints(&new);
 	return (1);
