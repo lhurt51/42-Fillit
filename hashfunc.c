@@ -12,19 +12,6 @@
 
 #include "fillit.h"
 
-void	ft_hashiter(t_hash *tmp, t_hash **bgnlst, t_hash *(*f)(t_hash *elem))
-{
-	t_hash	*lst;
-
-	lst = *bgnlst;
-	while (lst)
-	{
-		if (lst == tmp)
-		lst = lst->next;
-	}
-	return (head);
-}
-
 t_hash	*ft_newhash(unsigned int i, int	*x, int *y)
 {
 	t_hash	*new;

@@ -77,7 +77,7 @@ void				ft_printlst(t_list *alst);
 int					ft_lstcheck(t_list **begin, int (*f)(t_list *elem));
 void				ft_lstadd(t_list **alst, t_list *new);
 int					tetriminocheck(t_list *lst);
-int					fill_it_solve(int n, int row, char **board, t_hash **bgnlst);
+int					fill_it_solve(int n,char **board, t_hash **bgnlst);
 void				del(void *str);
 void				my_lstdelone(t_hash **alst, void (*del)(void*));
 void				ft_addhash(t_hash **bgnlst, t_hash *lst);
