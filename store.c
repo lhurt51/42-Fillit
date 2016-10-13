@@ -13,67 +13,6 @@
 #include <stdio.h>
 #include "fillit.h"
 
-void	print(t_hash *lst)
-{
-	while (lst)
-	{
-		ft_putchar(lst->type);
-		ft_putchar('\n');
-		ft_putnbr(lst->x[0]);
-		ft_putnbr(lst->x[1]);
-		ft_putnbr(lst->x[2]);
-		ft_putnbr(lst->x[3]);
-		ft_putchar('\n');
-		ft_putnbr(lst->y[0]);
-		ft_putnbr(lst->y[1]);
-		ft_putnbr(lst->y[2]);
-		ft_putnbr(lst->y[3]);
-		ft_putchar('\n');
-		lst = lst->next;
-	}
-}
-
-char	**gridmal()
-{
-	char **grid;
-	grid = (char**)malloc(sizeof(char*) * 4);
-	grid[0] = (char*)malloc(sizeof(char) * 5);
-	grid[1] = (char*)malloc(sizeof(char) * 5);
-	grid[2] = (char*)malloc(sizeof(char) * 5);
-	grid[3] = (char*)malloc(sizeof(char) * 5);
-	return grid;
-}
-
-char **getgrid(char *str)
-{
-	int i;
-	int x;
-	int y;
-	char **grid;
-
-	y = 0;
-	x = 0;
-	i = 0;
-	grid = gridmal();
-	while(i < 20)
-	{
-		printf("%d%s%d%s%d\n",x," ",y," ",i);
-		if (str[i] == '.' || str[i] == '#')
-		{
-			grid[y][x] = str[i];
-			x++;
-		}
-		else if(str[i] == '\n')
-		{
-			grid[y][x] = '\0';
-			y++;
-			x = 0;
-		}
-		i++;
-	}
-	return grid;
-}
-
 void	findkey(int *x, int *y, char **grid)
 {
 	int i;
@@ -102,31 +41,31 @@ int	*findpointx(char **grid, int xdef)
 {
 	int x;
 	int y;
+	int	first;
 	int *pointx;
 	int pc;
 
 	pointx = (int*)malloc(sizeof(int) * 4);
 	y = 0;
 	pc  = 0;
-	printf("%s\n","in x");
 	while (y < 4)
 	{
-		printf("%s\n","in while loop");
-		printf("%d\n",y);
 		x = 0;
 		while(grid[y][x])
 		{
-			printf("%s\n","nested");
 			if (grid[y][x] == '#')
 			{
 				pointx[pc] = (x - xdef);
+				if (pc == 0)
+					first = pointx[pc];
+				if (first)
+					pointx[pc] -= 1;
 				pc++;
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("%s\n","before pointx ret");
 	return (pointx);
 }
 
@@ -134,6 +73,7 @@ int	*findpointy(char **grid, int ydef)
 {
 	int x;
 	int y;
+	int	first;
 	int *pointy;
 	int pc;
 
@@ -148,6 +88,10 @@ int	*findpointy(char **grid, int ydef)
 			if (grid[y][x] == '#')
 			{
 				pointy[pc] = (y - ydef);
+				if (pc == 0)
+					first = pointy[pc];
+				if (first)
+					pointy[pc] -= 1;
 				pc++;
 			}
 			x++;
@@ -157,47 +101,20 @@ int	*findpointy(char **grid, int ydef)
 	return (pointy);
 }
 
-t_hash	*storepoints(t_list **heads)
+void	storepoints(t_hash **bgnlst, char *str, unsigned int i)
 {
-	t_list *lsts;
-	t_hash *points;
-	char *str;
 	char **grid;
-	int count;
 	int *x;
 	int *y;
-	unsigned int i;
 	
 	x = (int*)malloc(sizeof(int) * 1);
 	y = (int*)malloc(sizeof(int) * 1);
-	i = 0;
-	count = 0;
 	*x = 9;
 	*y = 9;
-	lsts = *heads;
-	while (lsts)
-	{
-		printf("%s\n","inside while 1");
-		str = lsts->content;
-		printf("%s\n","after str");
-		grid = ft_strsplit(str, '\n');
-		printf("%s\n","after get grid");
-		findkey(x,y,grid);
-		printf("%s\n","before if");
-		printf("%d%d\n",*x,*y);
-		if (count == 0)
-		{
-			printf("%s\n","in first if");
-			points = ft_newhash(i, findpointx(grid,*x),findpointy(grid,*y));
-			count++;
-			printf("%s\n","after first if");
-		}
-		else
-			ft_addhash(&points,ft_newhash(i,findpointx(grid,*x),findpointy(grid,*y)));
-		lsts = lsts->next;
-		i++;
-	}
-	printf("%s\n","before return");
-	print(points);
-	return points;
+	grid = ft_strsplit(str, '\n');
+	findkey(x,y,grid);
+	if (i == 0)
+		*bgnlst = ft_newhash(i, findpointx(grid,*x),findpointy(grid,*y));
+	else
+		ft_addhash(bgnlst, ft_newhash(i, findpointx(grid,*x), findpointy(grid,*y)));
 }
