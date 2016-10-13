@@ -113,4 +113,6 @@ void	storepoints(t_hash **bgnlst, char *str, unsigned int i)
 	else
 		ft_addhash(bgnlst, ft_newhash(i, findpointx(grid, *x, 0, 0), 
 			findpointy(grid, *y, 0, 0)));
+	free(x);
+	free(y);
 }
