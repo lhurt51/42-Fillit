@@ -12,12 +12,6 @@
 
 #include "fillit.h"
 
-void	*error(char *msg)
-{
-	ft_putendl(msg);
-	return (NULL);
-}
-
 t_hash	*storepieces(char *av)
 {
 	t_hash			*pieces;
@@ -75,18 +69,6 @@ int		get_size(t_hash *lst)
 		i--;
 	}
 	return(i);
-}
-
-void	print_board(char **board, unsigned int size)
-{
-	unsigned int j;
-
-	j = 0;
-	while (j < size)
-	{
-		ft_putendl(board[j]);
-		j++;
-	}
 }
 
 int		main(int argc, char **argv)

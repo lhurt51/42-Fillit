@@ -75,22 +75,22 @@ int	sizecheck(char *str)
 	set0(&i, &hash, &len, &height);
 	while (str[i])
 	{
-		if (str[i] == '.')
+		if (str[i] == '.' || str[i] == '#')
 			len++;
 		if (str[i] == '#')
 			hash++;
 		if (str[i] == '\n')
 		{
-			if (len != 4 && i != 21)
-				return 0;
+			if (len != 4)
+				return (0);
 			height++;
 			len = 0;
 		}
 		if (height > 4 || hash > 4 || len > 4 || i > 21)
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 int		tetriminocheck(char *str)
@@ -99,7 +99,7 @@ int		tetriminocheck(char *str)
 	int i;
 
 	i = 0;
-	tmp = (ft_tertrim(str));
+	tmp = ft_tertrim(str);
 	while(TESTER[i])
 	{
 		if(ft_strcmp(tmp, TESTER[i]) == 0 && sizecheck(str))

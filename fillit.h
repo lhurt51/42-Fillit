@@ -45,6 +45,10 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 
+void				*error(char *msg);
+void				print_board(char **board, unsigned int size);
+void				ft_printhash(t_hash *lst);
+int					ft_hashcount(t_hash **bgnlst);
 void				ft_addhash(t_hash **bgnlst, t_hash *lst);
 t_hash				*ft_newhash(unsigned int i, int	*x, int *y);
 void				ft_hashdelone(t_hash **alst, void (*del)(void**));
@@ -52,8 +56,5 @@ void				ft_hashdel(t_hash **alst, void (*del)(t_hash**, void (*del)(void**)));
 int					tetriminocheck(char *str);
 void				storepoints(t_hash **bgnlst, char *str, unsigned int i);
 int					fill_it_solve(int n, int row, char **board, t_hash **bgnlst);
-void				ft_printhash(t_hash *lst);
-int					ft_hashcount(t_hash **bgnlst);
-void				print_board(char **board, unsigned int size);
 
 #endif
