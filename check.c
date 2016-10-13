@@ -56,6 +56,42 @@ char	*ft_tertrim(char const *s)
 	return (new);
 }
 
+void set0(int *one, int *two, int *three, int *four)
+{
+	*one = 0;
+	*two = 0;
+	*three = 0;
+	*four = 0;
+}
+
+int	sizecheck(char *str)
+{
+	int i;
+	int hash;
+	int len;
+	int height;
+
+	set0(&i, &hash, &len, &height);
+	while (str[i])
+	{
+		if (str[i] == '.')
+			len++;
+		if (str[i] == '#')
+			hash++;
+		if (str[i] == '\n')
+		{
+			if (len != 4 && i != 21)
+				return 0;
+			height++;
+			len = 0;
+		}
+		if (height > 4 || hash > 4 || len > 4 || i > 21)
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
 int		tetriminocheck(char *str)
 {
 	char *tmp;
@@ -65,7 +101,7 @@ int		tetriminocheck(char *str)
 	tmp = (ft_tertrim(str));
 	while(TESTER[i])
 	{
-		if(ft_strcmp(tmp, TESTER[i]) == 0)
+		if(ft_strcmp(tmp, TESTER[i]) == 0 && sizecheck(str))
 		{
 			return (1);
 		}
