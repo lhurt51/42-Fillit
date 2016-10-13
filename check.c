@@ -12,14 +12,22 @@
 
 #include "fillit.h"
 
-int		findspace(char *s)
+char	*ter_make(char *s, unsigned int *start, unsigned int *end)
 {
-	int	i;
+	unsigned int	i;
+	char			*new;
 
 	i = 0;
 	while (s[i] == '.' || s[i] == '\n')
 		i++;
-	return (i);
+	*start = i;
+	while (s[i])
+		i++;
+	while (i > *start && (s[i] == '.' || s[i] == '\n' || s[i] == '\0'))
+		i--;
+	*end = i;
+	new = ft_strnew(*end - *start + 1);
+	return (new);
 }
 
 char	*ft_tertrim(char const *s)
@@ -28,18 +36,11 @@ char	*ft_tertrim(char const *s)
 	unsigned	start;
 	unsigned	end;
 	char		*new;
-
-	i = findspace((char*)s);
-	start = i;
-	while (s[i])
-		i++;
-	while (i > start && (s[i] == '.' || s[i] == '\n' || s[i] == '\0'))
-		i--;
-	end = i;
-	new = ft_strnew(end - start + 1);
-	i = 0;
+	
+	new = ter_make((char*)s, &start, &end);
 	if (!new)
 		return (NULL);
+	i = 0;
 	while (start <= end)
 	{
 		if (s[start] == '\n')
@@ -74,22 +75,22 @@ int	sizecheck(char *str)
 	set0(&i, &hash, &len, &height);
 	while (str[i])
 	{
-		if (str[i] == '.')
+		if (str[i] == '.' || str[i] == '#')
 			len++;
 		if (str[i] == '#')
 			hash++;
 		if (str[i] == '\n')
 		{
-			if (len != 4 && i != 21)
-				return 0;
+			if (len != 4)
+				return (0);
 			height++;
 			len = 0;
 		}
 		if (height > 4 || hash > 4 || len > 4 || i > 21)
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
 int		tetriminocheck(char *str)
@@ -98,14 +99,16 @@ int		tetriminocheck(char *str)
 	int i;
 
 	i = 0;
-	tmp = (ft_tertrim(str));
+	tmp = ft_tertrim(str);
 	while(TESTER[i])
 	{
 		if(ft_strcmp(tmp, TESTER[i]) == 0 && sizecheck(str))
 		{
+			ft_strdel(&tmp);
 			return (1);
 		}
 		i++;
 	}
+	ft_strdel(&tmp);
 	return (0);
 }

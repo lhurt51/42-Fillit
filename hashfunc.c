@@ -12,26 +12,6 @@
 
 #include "fillit.h"
 
-void	ft_printhash(t_hash *lst)
-{
-	while (lst)
-	{
-		ft_putchar(lst->type);
-		ft_putchar('\n');
-		ft_putnbr(lst->x[0]);
-		ft_putnbr(lst->x[1]);
-		ft_putnbr(lst->x[2]);
-		ft_putnbr(lst->x[3]);
-		ft_putchar('\n');
-		ft_putnbr(lst->y[0]);
-		ft_putnbr(lst->y[1]);
-		ft_putnbr(lst->y[2]);
-		ft_putnbr(lst->y[3]);
-		ft_putchar('\n');
-		lst = lst->next;
-	}
-}
-
 t_hash	*ft_newhash(unsigned int i, int	*x, int *y)
 {
 	t_hash	*new;
