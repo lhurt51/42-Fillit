@@ -20,10 +20,10 @@ void	*error(char *msg)
 
 t_hash	*storepieces(char *av)
 {
-	t_hash	*pieces;
-	char	str[SIZE + 1];
-	unsigned int i;
-	int		fd;
+	t_hash			*pieces;
+	char			str[SIZE + 1];
+	unsigned int	i;
+	int				fd;
 
 	i = 0;
 	fd = open(av, O_RDONLY);
@@ -41,10 +41,10 @@ t_hash	*storepieces(char *av)
 	return (pieces);
 }
 
-char	**build_board(int size)
+char	**build_board(unsigned int size)
 {
-	int		i;
-	char	**board;
+	unsigned int	i;
+	char			**board;
 
 	i = 0;
 	board = (char**)malloc(sizeof(char*) * (size + 1));
@@ -58,23 +58,21 @@ char	**build_board(int size)
 	return (board);
 }
 
-int		get_size(t_hash **bgnlst)
+int		get_size(t_hash *lst)
 {
-	t_hash *lst;
-	int	size;
-	int tmp;
-	int i;
+	unsigned int	size;
+	unsigned int 	tmp;
+	unsigned int 	i;
 
-	i = 2;
-	lst = *bgnlst;
 	size = ft_hashcount(&lst);
 	size *= 4;
-	while (i < (size / 2))
+	i = size / 2;
+	while (i > 0)
 	{
 		tmp = size / i;
 		if (tmp == i)
 			break ;
-		i++;
+		i--;
 	}
 	return(i);
 }
@@ -93,16 +91,16 @@ void	print_board(char **board, unsigned int size)
 
 int		main(int argc, char **argv)
 {
-	t_hash	*tmp;
-	char	**board;
-	int		done;
-	int		size;
+	t_hash			*tmp;
+	char			**board;
+	unsigned int	done;
+	unsigned int	size;
 
 	done = 0;
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	tmp = storepieces(argv[1]);
-	size = get_size(&tmp);
+	size = get_size(tmp);
 	while (!done)
 	{
 		board = build_board(size);
