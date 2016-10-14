@@ -55,18 +55,15 @@ char	**build_board(unsigned int size)
 int		get_size(t_hash *lst)
 {
 	unsigned int	size;
-	unsigned int 	tmp;
 	unsigned int 	i;
 
 	size = ft_hashcount(&lst);
 	size *= 4;
-	i = size / 2;
-	while (i > 0)
+	i = 0;
+	while (!i)
 	{
-		tmp = size / i;
-		if (tmp == i)
-			break ;
-		i--;
+		i = find_sqrt(1, size);
+		size++;
 	}
 	return(i);
 }
@@ -82,6 +79,8 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
 	tmp = storepieces(argv[1]);
+	if (!tmp)
+		return (0);
 	size = get_size(tmp);
 	while (!done)
 	{

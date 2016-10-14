@@ -32,13 +32,10 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-void				ft_putchar(char c);
 void				ft_putendl(char const *s);
-void				ft_putnbr(int nb);
 void				*ft_memset(void *b, int c, size_t len);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
-size_t				ft_strlen(const char *s);
 int					ft_strcmp(const char *s1, const char *s2);
 char				**ft_strsplit(char const *s, char c);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -46,8 +43,8 @@ void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 
 void				*error(char *msg);
+int					find_sqrt(int n, int nb);
 void				print_board(char **board, unsigned int size);
-void				ft_printhash(t_hash *lst);
 int					ft_hashcount(t_hash **bgnlst);
 void				ft_addhash(t_hash **bgnlst, t_hash *lst);
 t_hash				*ft_newhash(unsigned int i, int	*x, int *y);

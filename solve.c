@@ -73,10 +73,10 @@ int		fill_it_solve(int n, int row, char **board, t_hash **bgnlst)
 	lst = *bgnlst;
 	if (!lst)
 		return (1);
-	while (row < n) // - lst->height
+	while (row < n)
 	{
 		col = 0;
-		while (col < n) // - lst->len
+		while (col < n)
 		{
 			found = is_valid_spot(n, row, col, board, lst);
 			if (found)

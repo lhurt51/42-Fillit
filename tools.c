@@ -18,6 +18,22 @@ void	*error(char *msg)
 	return (NULL);
 }
 
+int		find_sqrt(int n, int nb)
+{
+	if (n * n > nb)
+	{
+		return (0);
+	}
+	if (n * n == nb)
+	{
+		return (n);
+	}
+	else
+	{
+		return (find_sqrt(n + 1, nb));
+	}
+}
+
 void	print_board(char **board, unsigned int size)
 {
 	unsigned int j;
@@ -27,25 +43,5 @@ void	print_board(char **board, unsigned int size)
 	{
 		ft_putendl(board[j]);
 		j++;
-	}
-}
-
-void	ft_printhash(t_hash *lst)
-{
-	while (lst)
-	{
-		ft_putchar(lst->type);
-		ft_putchar('\n');
-		ft_putnbr(lst->x[0]);
-		ft_putnbr(lst->x[1]);
-		ft_putnbr(lst->x[2]);
-		ft_putnbr(lst->x[3]);
-		ft_putchar('\n');
-		ft_putnbr(lst->y[0]);
-		ft_putnbr(lst->y[1]);
-		ft_putnbr(lst->y[2]);
-		ft_putnbr(lst->y[3]);
-		ft_putchar('\n');
-		lst = lst->next;
 	}
 }
