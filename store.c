@@ -18,10 +18,10 @@ void	findkey(int *x, int *y, char **grid)
 	int j;
 
 	i = 3;
-	while(i >= 0)
+	while (i >= 0)
 	{
 		j = 3;
-		while(j >= 0)
+		while (j >= 0)
 		{
 			if (grid[i][j] == '#')
 			{
@@ -36,18 +36,18 @@ void	findkey(int *x, int *y, char **grid)
 	}
 }
 
-int	*findpointx(char **grid, int xdef, int y, int x)
+int		*findpointx(char **grid, int xdef, int y, int x)
 {
 	int	first;
 	int *pointx;
 	int pc;
 
 	pointx = (int*)malloc(sizeof(int) * 4);
-	pc  = 0;
+	pc = 0;
 	while (y < 4)
 	{
 		x = 0;
-		while(grid[y][x])
+		while (grid[y][x])
 		{
 			if (grid[y][x] == '#')
 			{
@@ -65,7 +65,7 @@ int	*findpointx(char **grid, int xdef, int y, int x)
 	return (pointx);
 }
 
-int	*findpointy(char **grid, int ydef, int y, int x)
+int		*findpointy(char **grid, int ydef, int y, int x)
 {
 	int	first;
 	int *pointy;
@@ -76,7 +76,7 @@ int	*findpointy(char **grid, int ydef, int y, int x)
 	while (y < 4)
 	{
 		x = 0;
-		while(grid[y][x])
+		while (grid[y][x])
 		{
 			if (grid[y][x] == '#')
 			{
@@ -96,21 +96,21 @@ int	*findpointy(char **grid, int ydef, int y, int x)
 
 void	storepoints(t_hash **bgnlst, char *str, unsigned int i)
 {
-	char **grid;
-	int *x;
-	int *y;
-	
+	char	**grid;
+	int		*x;
+	int		*y;
+
 	x = (int*)malloc(sizeof(int) * 1);
 	y = (int*)malloc(sizeof(int) * 1);
 	*x = 4;
 	*y = 4;
 	grid = ft_strsplit(str, '\n');
-	findkey( x, y, grid);
+	findkey(x, y, grid);
 	if (i == 0)
-		*bgnlst = ft_newhash(i, findpointx(grid, *x, 0, 0), 
+		*bgnlst = ft_newhash(i, findpointx(grid, *x, 0, 0),
 			findpointy(grid, *y, 0, 0));
 	else
-		ft_addhash(bgnlst, ft_newhash(i, findpointx(grid, *x, 0, 0), 
+		ft_addhash(bgnlst, ft_newhash(i, findpointx(grid, *x, 0, 0),
 			findpointy(grid, *y, 0, 0)));
 	free(x);
 	free(y);

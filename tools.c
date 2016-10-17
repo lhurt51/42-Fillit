@@ -45,3 +45,28 @@ void	print_board(char **board, unsigned int size)
 		j++;
 	}
 }
+
+int		find_greatest(int *ary)
+{
+	int	i;
+	int	num;
+
+	i = 3;
+	num = 0;
+	while (i > -1)
+	{
+		if (ary[i] > num)
+			num = ary[i];
+		i--;
+	}
+	return (num);
+}
+
+void	assign_max(t_hash **lst)
+{
+	t_hash	*new;
+
+	new = *lst;
+	new->w = find_greatest(new->x);
+	new->h = find_greatest(new->y);
+}

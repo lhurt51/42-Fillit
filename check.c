@@ -36,7 +36,7 @@ char	*ft_tertrim(char const *s)
 	unsigned	start;
 	unsigned	end;
 	char		*new;
-	
+
 	new = ter_make((char*)s, &start, &end);
 	if (!new)
 		return (NULL);
@@ -49,15 +49,14 @@ char	*ft_tertrim(char const *s)
 		{
 			new[i] = s[start];
 			start++;
-			i++;	
+			i++;
 		}
-
 	}
 	new[i] = '\0';
 	return (new);
 }
 
-void set0(int *one, int *two, int *three, int *four)
+void	set0(int *one, int *two, int *three, int *four)
 {
 	*one = 0;
 	*two = 0;
@@ -65,7 +64,7 @@ void set0(int *one, int *two, int *three, int *four)
 	*four = 0;
 }
 
-int	sizecheck(char *str)
+int		sizecheck(char *str)
 {
 	int i;
 	int hash;
@@ -81,28 +80,30 @@ int	sizecheck(char *str)
 			hash++;
 		if (str[i] == '\n')
 		{
-			if (len != 4)
+			if (len != 4 || i > 21)
 				return (0);
 			height++;
 			len = 0;
 		}
-		if (height > 4 || hash > 4 || len > 4 || i > 21)
-			return (0);
 		i++;
 	}
+	if (height != 4 || hash != 4)
+		return (0);
 	return (1);
 }
 
 int		tetriminocheck(char *str)
 {
-	char *tmp;
-	int i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	tmp = ft_tertrim(str);
-	while(TESTER[i])
+	if (!tmp)
+		return (0);
+	while (i < 19 && sizecheck(str))
 	{
-		if(ft_strcmp(tmp, TESTER[i]) == 0 && sizecheck(str))
+		if (ft_strcmp(tmp, g_tester[i]) == 0)
 		{
 			ft_strdel(&tmp);
 			return (1);

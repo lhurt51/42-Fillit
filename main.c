@@ -31,6 +31,8 @@ t_hash	*storepieces(char *av)
 		storepoints(&pieces, str, i);
 		i++;
 	}
+	if (i == 0)
+		return (error("error: no content"));
 	close(fd);
 	return (pieces);
 }
@@ -55,7 +57,7 @@ char	**build_board(unsigned int size)
 int		get_size(t_hash *lst)
 {
 	unsigned int	size;
-	unsigned int 	i;
+	unsigned int	i;
 
 	size = ft_hashcount(&lst);
 	size *= 4;
@@ -65,7 +67,7 @@ int		get_size(t_hash *lst)
 		i = find_sqrt(1, size);
 		size++;
 	}
-	return(i);
+	return (i);
 }
 
 int		main(int argc, char **argv)

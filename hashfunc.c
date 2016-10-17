@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-t_hash	*ft_newhash(unsigned int i, int	*x, int *y)
+t_hash	*ft_newhash(unsigned int i, int *x, int *y)
 {
 	t_hash	*new;
 
@@ -28,11 +28,12 @@ t_hash	*ft_newhash(unsigned int i, int	*x, int *y)
 		else
 		{
 			new->type = (char)(i + 65);
-			if (!(new->x = ft_memalloc(4 * 4)) 
+			if (!(new->x = ft_memalloc(4 * 4))
 				|| !(new->y = ft_memalloc(4 * 4)))
 				return (NULL);
 			new->x = (int*)ft_memcpy(new->x, x, 4 * 4);
 			new->y = (int*)ft_memcpy(new->y, y, 4 * 4);
+			assign_max(&new);
 		}
 		new->next = NULL;
 	}

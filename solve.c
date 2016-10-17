@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-int		is_valid_spot(int n, int row, int col, char **board, t_hash *lst)
+int		is_valid_spot(int row, int col, char **board, t_hash *lst)
 {
 	int		i;
 	int		x;
@@ -23,8 +23,7 @@ int		is_valid_spot(int n, int row, int col, char **board, t_hash *lst)
 	{
 		x = lst->x[i];
 		y = lst->y[i];
-		if ((row + y >= n || row + y < 0) || (col + x >= n || col + x < 0) 
-			|| board[row + y][col + x] != '.')
+		if (board[row + y][col + x] != '.')
 			return (0);
 		i--;
 	}
@@ -73,15 +72,15 @@ int		fill_it_solve(int n, int row, char **board, t_hash **bgnlst)
 	lst = *bgnlst;
 	if (!lst)
 		return (1);
-	while (row < n)
+	while (row < n - lst->h)
 	{
 		col = 0;
-		while (col < n)
+		while (col < n - lst->w)
 		{
-			found = is_valid_spot(n, row, col, board, lst);
+			found = is_valid_spot(row, col, board, lst);
 			if (found)
 			{
-				if (fill_it_solve(n, 0, board, 
+				if (fill_it_solve(n, 0, board,
 					store_hash(row, col, board, lst)))
 					return (1);
 				reset(row, col, lst, board);
