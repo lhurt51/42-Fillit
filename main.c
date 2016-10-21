@@ -25,6 +25,8 @@ t_hash	*storepieces(char *av)
 		return (error("error: failed to open file"));
 	while (read(fd, str, SIZE + 1))
 	{
+		if(i == 26)
+			return (error("error: to many tetrimino's"));
 		str[SIZE] = '\0';
 		if (!tetriminocheck(str))
 			return (error("error: bad hash format"));
