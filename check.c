@@ -50,7 +50,7 @@ static int		sizecheck(char *str)
 
 int				tetriminocheck(char *str)
 {
-	if (count_islands(ft_strsplit(str, '\n')) == 1 && sizecheck(str))
+	if (sizecheck(str) && count_islands(ft_strsplit(str, '\n')) == 1)
 		return (1);
 	return (0);
 }
