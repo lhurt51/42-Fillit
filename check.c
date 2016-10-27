@@ -48,9 +48,9 @@ static int		sizecheck(char *str)
 	return (1);
 }
 
-int		tetriminocheck(char *str)
+int				tetriminocheck(char *str)
 {
 	if (count_islands(ft_strsplit(str, '\n')) == 1 && sizecheck(str))
-			return (1);
+		return (1);
 	return (0);
 }

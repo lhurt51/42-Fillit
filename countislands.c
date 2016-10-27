@@ -24,7 +24,7 @@ static int		get_ydimen(char **map)
 
 static int		get_xdimen(char **map)
 {
-	return ft_strlen(map[0]);
+	return (ft_strlen(map[0]));
 }
 
 static void		delete_island(char **map, int x, int y)
@@ -41,7 +41,6 @@ static void		delete_island(char **map, int x, int y)
 		if (y < get_ydimen(map) - 1)
 			delete_island(map, x, y + 1);
 	}
-
 }
 
 int				count_islands(char **map)
