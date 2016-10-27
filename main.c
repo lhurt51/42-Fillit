@@ -18,15 +18,16 @@ t_hash	*storepieces(char *av)
 	char			str[SIZE + 1];
 	unsigned int	i;
 	int				fd;
+	int				ret;
 
 	i = 0;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (error("error"));
-	while (read(fd, str, SIZE + 1))
+	while ((ret = read(fd, str, SIZE + 1)))
 	{
 		str[SIZE] = '\0';
-		if (!tetriminocheck(str) || i == 26)
+		if (!tetriminocheck(str) || i == 26 || ret < 20)
 			return (error("error"));
 		storepoints(&pieces, str, i);
 		i++;
