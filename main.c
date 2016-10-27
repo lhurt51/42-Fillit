@@ -22,19 +22,17 @@ t_hash	*storepieces(char *av)
 	i = 0;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (error("error: failed to open file"));
+		return (error("error"));
 	while (read(fd, str, SIZE + 1))
 	{
-		if(i == 26)
-			return (error("error: to many tetrimino's"));
 		str[SIZE] = '\0';
-		if (!tetriminocheck(str))
-			return (error("error: bad hash format"));
+		if (!tetriminocheck(str) || i == 26)
+			return (error("error"));
 		storepoints(&pieces, str, i);
 		i++;
 	}
 	if (i == 0)
-		return (error("error: no content"));
+		return (error("error"));
 	close(fd);
 	return (pieces);
 }
