@@ -37,6 +37,7 @@ typedef struct		s_hash
 
 void				ft_putendl(char const *s);
 void				*ft_memset(void *b, int c, size_t len);
+int					ft_strlen(char *str);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -58,5 +59,6 @@ int					tetriminocheck(char *str);
 void				storepoints(t_hash **bgnlst, char *str, unsigned int i);
 int					fill_it_solve(int n, int row, char **board,
 						t_hash **bgnlst);
+int					count_islands(char **map);
 
 #endif

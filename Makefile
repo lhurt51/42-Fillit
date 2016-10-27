@@ -30,6 +30,7 @@ SRCS =	$(LIBFT)libft.a \
 		store.c \
 		solve.c \
 		hashfunc.c \
+		countislands.c \
 		main.c \
 
 all: 	$(NAME)

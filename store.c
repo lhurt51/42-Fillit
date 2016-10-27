@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-void	findkey(int *x, int *y, char **grid)
+static void		findkey(int *x, int *y, char **grid)
 {
 	int i;
 	int j;
@@ -36,7 +36,7 @@ void	findkey(int *x, int *y, char **grid)
 	}
 }
 
-int		*findpointx(char **grid, int xdef, int y, int x)
+static int		*findpointx(char **grid, int xdef, int y, int x)
 {
 	int	first;
 	int *pointx;
@@ -65,7 +65,7 @@ int		*findpointx(char **grid, int xdef, int y, int x)
 	return (pointx);
 }
 
-int		*findpointy(char **grid, int ydef, int y, int x)
+static int		*findpointy(char **grid, int ydef, int y, int x)
 {
 	int	first;
 	int *pointy;
@@ -94,7 +94,7 @@ int		*findpointy(char **grid, int ydef, int y, int x)
 	return (pointy);
 }
 
-void	storepoints(t_hash **bgnlst, char *str, unsigned int i)
+void			storepoints(t_hash **bgnlst, char *str, unsigned int i)
 {
 	char	**grid;
 	int		*x;

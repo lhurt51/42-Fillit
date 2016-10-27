@@ -12,51 +12,7 @@
 
 #include "fillit.h"
 
-char	*ter_make(char *s, unsigned int *start, unsigned int *end)
-{
-	unsigned int	i;
-	char			*new;
-
-	i = 0;
-	while (s[i] == '.' || s[i] == '\n')
-		i++;
-	*start = i;
-	while (s[i])
-		i++;
-	while (i > *start && (s[i] == '.' || s[i] == '\n' || s[i] == '\0'))
-		i--;
-	*end = i;
-	new = ft_strnew(*end - *start + 1);
-	return (new);
-}
-
-char	*ft_tertrim(char const *s)
-{
-	unsigned	i;
-	unsigned	start;
-	unsigned	end;
-	char		*new;
-
-	new = ter_make((char*)s, &start, &end);
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (start <= end)
-	{
-		if (s[start] == '\n')
-			start++;
-		else
-		{
-			new[i] = s[start];
-			start++;
-			i++;
-		}
-	}
-	new[i] = '\0';
-	return (new);
-}
-
-void	set0(int *one, int *two, int *three, int *four)
+static void		set0(int *one, int *two, int *three, int *four)
 {
 	*one = 0;
 	*two = 0;
@@ -64,7 +20,7 @@ void	set0(int *one, int *two, int *three, int *four)
 	*four = 0;
 }
 
-int		sizecheck(char *str)
+static int		sizecheck(char *str)
 {
 	int i;
 	int hash;
@@ -94,22 +50,7 @@ int		sizecheck(char *str)
 
 int		tetriminocheck(char *str)
 {
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = ft_tertrim(str);
-	if (!tmp)
-		return (0);
-	while (i < 19 && sizecheck(str))
-	{
-		if (ft_strcmp(tmp, g_tester[i]) == 0)
-		{
-			ft_strdel(&tmp);
+	if (count_islands(ft_strsplit(str, '\n')) == 1 && sizecheck(str))
 			return (1);
-		}
-		i++;
-	}
-	ft_strdel(&tmp);
 	return (0);
 }
