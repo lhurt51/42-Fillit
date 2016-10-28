@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-t_hash	*storepieces(char *av)
+t_hash	*storepieces(char *av, unsigned int check)
 {
 	t_hash			*pieces;
 	char			str[SIZE + 1];
@@ -26,13 +26,15 @@ t_hash	*storepieces(char *av)
 		return (error("error"));
 	while ((ret = read(fd, str, SIZE + 1)))
 	{
-		str[SIZE] = '\0';
+		str[ret - 1] = '\0';
+		if (ret == 21)
+			check++;
 		if (!tetriminocheck(str) || i == 26 || ret < 20)
 			return (error("error"));
 		storepoints(&pieces, str, i);
 		i++;
 	}
-	if (i == 0)
+	if (i == 0 || check == i)
 		return (error("error"));
 	close(fd);
 	return (pieces);
@@ -81,7 +83,7 @@ int		main(int argc, char **argv)
 	done = 0;
 	if (argc != 2)
 		return ((int)error("usage: ./fillit target_file"));
-	tmp = storepieces(argv[1]);
+	tmp = storepieces(argv[1], 0);
 	if (!tmp)
 		return (0);
 	size = get_size(tmp);

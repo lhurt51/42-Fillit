@@ -12,22 +12,20 @@
 
 #include "fillit.h"
 
-static void		set0(int *one, int *two, int *three, int *four)
+static void		set0(int *one, int *two, int *three)
 {
 	*one = 0;
 	*two = 0;
 	*three = 0;
-	*four = 0;
 }
 
-static int		sizecheck(char *str)
+static int		sizecheck(char *str, int i)
 {
-	int i;
 	int hash;
 	int len;
 	int height;
 
-	set0(&i, &hash, &len, &height);
+	set0(&hash, &len, &height);
 	while (str[i])
 	{
 		if (str[i] == '.' || str[i] == '#')
@@ -36,11 +34,13 @@ static int		sizecheck(char *str)
 			hash++;
 		if (str[i] == '\n')
 		{
-			if (len != 4 || i > 21)
+			if (len != 4 || i > 19)
 				return (0);
 			height++;
 			len = 0;
 		}
+		if (str[i + 1] == '\0' && len == 4)
+			height++;
 		i++;
 	}
 	if (height != 4 || hash != 4)
@@ -50,7 +50,7 @@ static int		sizecheck(char *str)
 
 int				tetriminocheck(char *str)
 {
-	if (sizecheck(str) && count_islands(ft_strsplit(str, '\n')) == 1)
+	if (sizecheck(str, 0) && count_islands(ft_strsplit(str, '\n')) == 1)
 		return (1);
 	return (0);
 }
